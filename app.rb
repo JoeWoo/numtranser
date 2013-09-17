@@ -17,7 +17,7 @@ end
 before '/secure/*' do
   if !session[:identity] then
     session[:previous_url] = request.path
-    @info = ' 你需要键入昵称后才可以使用 ' + request.path
+    @info = ' 你需要键入昵称后才可以使用～ ' 
     halt erb(:login_form)
   end
 end

@@ -47,4 +47,11 @@ function clear_editor () {
 };
 
 
+function demo (index){
+  $("#editor").html("")
+  var div="#"+index
+  $("#editor").text($(div).html());
+  $("#start").click()
+}
+
 

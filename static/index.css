@@ -4,6 +4,9 @@
 body {
 	min-height:900px; 
 }
+.hidden{
+	display: none;
+}
 #editor {
 	max-height: 250px;
 	height: 250px;
