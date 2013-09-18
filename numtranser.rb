@@ -407,7 +407,6 @@ class Numtranser
     def autoMachine(str,dept)
       clear
       @dept = dept
-      @stubNum = str.count "、"
       str.gsub!(/分之/,'圙')
       str.gsub!(/好几/,'')
       str.gsub!(/几乎/,'ゑ')
@@ -441,12 +440,7 @@ class Numtranser
       yu_pos.each do |index|
         str[index]=""
       end
-      # puts "line:"+@stubNum.to_s
-      # if @stubNum >= 3
-      #   @ordinal_numeral=1
-      #   @noPrintOrderFlag = 1
-      #   @stubFlag = 1
-      # end
+
       str.each_char do |char|
 
         digit = $kanji['系数'][char]
@@ -476,6 +470,9 @@ class Numtranser
         case @stat
           when 0
             if digit != nil
+              if digit == 0
+                @zeroFlag = 1
+              end
               @moreOrLess="about " if char=="几" || char==""
               @stat = 1
               @num = digit
@@ -522,11 +519,11 @@ class Numtranser
                 end
                 @rangeFlag=2
                 @rangeTail << char
-                calcu_range(dept+1)
-                @order = digit_pos/10
-                @num *= digit_pos
-                @pos_value += @num
-                @num = 0
+                @stat = 8
+                # @order = digit_pos/10
+                # @num *= digit_pos
+                # @pos_value += @num
+                # @num = 0
               else
                   @num *= digit_pos
                   if @num == 0
@@ -545,14 +542,15 @@ class Numtranser
                 end
                 @rangeFlag=2
                 @rangeTail << char
-                @stat=11
-                @order = digit_order/10
-                @pos_value += @num
-                @num = 0
-                @order_value = @pos_value * digit_order
-                @pos_value = 0
-                @value += @order_value
-                @order_value = 0
+                #calcu_range(dept+1)
+                @stat=8
+                # @order = digit_order/10
+                # @pos_value += @num
+                # @num = 0
+                # @order_value = @pos_value * digit_order
+                # @pos_value = 0
+                # @value += @order_value
+                # @order_value = 0
               else
                 @stat = 4
                 @order = digit_order/10
@@ -565,7 +563,9 @@ class Numtranser
                 @numstring.clear
               end
             elsif digit != nil       #连续数字
-              
+              # if digit == 0
+              #   @zeroFlag = 1
+              # end
               if @numstringFlag == 1
                 @value=@num
                 # puts @numstring
@@ -592,6 +592,9 @@ class Numtranser
                 elsif @zeroFlag == 0 && @rangeFlag == 1  #继续收集重叠项
                   @rangeBody << @kanjinumstring[-1]
                   @kanjinumstring.chop!
+                elsif @zeroFlag == 1
+
+                  @zeroFlag = 0 if digit != 0
                 end
 
               end
@@ -672,7 +675,7 @@ class Numtranser
                     y =  $kanji['系数'][@rangeBody[0]]
                   end
                   #puts "now2:"+@kanjitext
-                  if  x - y == 1                  #十万二三千零五十
+                  if  x - y == 1                  #十万二三千
                     @rangeBody.each do |body|
                       st=@rangeHead+body+@rangeTail+" "
                       a=Numtranser.new()
@@ -681,8 +684,8 @@ class Numtranser
                   else                            #十三二万
                     st = @rangeHead + @rangeBody[0] + " "
                     a=Numtranser.new()
-                    a.simpleMachine(st,dept+1)
-                    width = @rangeBody.size - 2
+                    m << a.simpleMachine(st,dept+1) + "、"
+                    width = @rangeBody.size - 1
                     1.upto(width) do |i|
                       st=@rangeBody[i]+" "
                       a=Numtranser.new()
@@ -703,7 +706,7 @@ class Numtranser
                   @rangeBody.each do |body|
                     @chuan << $kanji['系数'][body].to_s
                   end
-                  @result << highlight(@kanjitext,@chuan.clone)
+                  @result << highlight(@kanjitext,@chuan.clone)+char 
                   clear
 
                 end
@@ -740,6 +743,9 @@ class Numtranser
           when 2
             if digit != nil
               @moreOrLess="about " if char=="几" || char==""
+              if digit == 0
+                @zeroFlag = 1
+              end
               @num = digit
               @stat = 1
             elsif digit_pos != nil
@@ -1117,21 +1123,12 @@ class Numtranser
                  clear
               end
           when 8
-             if  @ordinal_numeral == 0
-                if @zeroFlag == 0 && @rangeFlag == 0    #初次收集重叠项头、并产生重叠项
-                  @rangeBody << @kanjinumstring[-2]
-                  @rangeBody << @kanjinumstring[-1]
-                  @kanjinumstring.chop!
-                  @kanjinumstring.chop!
-                  @rangeHead << @kanjinumstring
-                  @kanjinumstring.clear
-                  @rangeFlag = 1
-                elsif @zeroFlag == 0 && @rangeFlag == 1  #继续收集重叠项
-                  @rangeBody << @kanjinumstring[-1]
-                  @kanjinumstring.chop!
-                end
-
-              end
+            if digit!=nil || digit_order!=nil || digit_pos!=nil || extra_word!=nil || digit_origin!=nil
+              @rangeTail << char
+            else
+              calcu_range(dept+1)
+              @result  << char
+            end
           when 9
           when 10
             if digit != nil
@@ -1168,6 +1165,9 @@ class Numtranser
       clear
       @dept = dept
       str.gsub!(/分之/,'圙')
+      str.gsub!(/好几/,'')
+      str.gsub!(/几乎/,'ゑ')
+
       dian_pos=[]
       index=0
       while true
@@ -1182,6 +1182,22 @@ class Numtranser
       dian_pos.each do |index|
         str[index]="㊔"
       end
+
+      yu_pos=[]
+      index=0
+      while true
+        yustamp =/[除|除以]+[\d零一二三四五六七八九十]+([余])[\d数零一二三四五六七八九十]/.match(str,index)
+        if yustamp!=nil
+          yu_pos<<yustamp.begin(1)
+          index=yustamp.end(0)
+        else
+          break;
+        end
+      end
+      yu_pos.each do |index|
+        str[index]=""
+      end
+
       str.each_char do |char|
 
         digit = $kanji['系数'][char]
@@ -1194,7 +1210,11 @@ class Numtranser
           if char == "圙" 
             @kanjitext << "分之"
           elsif char == "㊔"
-            @kanjitext << ""
+            
+          elsif char ==""
+            @kanjitext << "好几"
+          elsif char ==""
+            @kanjitext << "余"
           else
             @kanjitext << char
           end 
@@ -1207,6 +1227,10 @@ class Numtranser
         case @stat
           when 0
             if digit != nil
+              if digit == 0
+                @zeroFlag = 1
+              end
+              @moreOrLess="about " if char=="几" || char==""
               @stat = 1
               @num = digit
             elsif digit_pos != nil
@@ -1252,11 +1276,11 @@ class Numtranser
                 end
                 @rangeFlag=2
                 @rangeTail << char
-                @stat=11
-                @order = digit_pos/10
-                @num *= digit_pos
-                @pos_value += @num
-                @num = 0
+                @stat = 8
+                # @order = digit_pos/10
+                # @num *= digit_pos
+                # @pos_value += @num
+                # @num = 0
               else
                   @num *= digit_pos
                   if @num == 0
@@ -1275,14 +1299,15 @@ class Numtranser
                 end
                 @rangeFlag=2
                 @rangeTail << char
-                @stat=11
-                @order = digit_order/10
-                @pos_value += @num
-                @num = 0
-                @order_value = @pos_value * digit_order
-                @pos_value = 0
-                @value += @order_value
-                @order_value = 0
+                #calcu_range(dept+1)
+                @stat=8
+                # @order = digit_order/10
+                # @pos_value += @num
+                # @num = 0
+                # @order_value = @pos_value * digit_order
+                # @pos_value = 0
+                # @value += @order_value
+                # @order_value = 0
               else
                 @stat = 4
                 @order = digit_order/10
@@ -1322,6 +1347,8 @@ class Numtranser
                 elsif @zeroFlag == 0 && @rangeFlag == 1  #继续收集重叠项
                   @rangeBody << @kanjinumstring[-1]
                   @kanjinumstring.chop!
+                elsif @zeroFlag == 1
+                  @zeroFlag = 0 if digit != 0
                 end
 
               end
@@ -1458,6 +1485,10 @@ class Numtranser
             end
           when 2
             if digit != nil
+              @moreOrLess="about " if char=="几" || char==""
+              if digit == 0
+                @zeroFlag = 1
+              end
               @num = digit
               @stat = 1
             elsif digit_pos != nil
@@ -1517,6 +1548,7 @@ class Numtranser
               @stat = 3
               @pos_value *= digit_pos
             elsif digit != nil
+               @moreOrLess="about " if char=="几" || char==""
               @stat = 1
               if digit == 0
                 @zeroFlag = 1
@@ -1618,6 +1650,7 @@ class Numtranser
            end
           when 5
             if digit != nil
+               @moreOrLess="about " if char=="几" || char==""
               @stat = 6
               @decimal_part += digit.to_s
             elsif digit_origin != nil
@@ -1644,6 +1677,7 @@ class Numtranser
             end
           when 6
             if digit != nil
+               @moreOrLess="about " if char=="几" || char==""
               @stat = 6
               @decimal_part += digit.to_s
             elsif digit_origin != nil
@@ -1829,21 +1863,12 @@ class Numtranser
                  clear
               end
           when 8
-             if  @ordinal_numeral == 0
-                if @zeroFlag == 0 && @rangeFlag == 0    #初次收集重叠项头、并产生重叠项
-                  @rangeBody << @kanjinumstring[-2]
-                  @rangeBody << @kanjinumstring[-1]
-                  @kanjinumstring.chop!
-                  @kanjinumstring.chop!
-                  @rangeHead << @kanjinumstring
-                  @kanjinumstring.clear
-                  @rangeFlag = 1
-                elsif @zeroFlag == 0 && @rangeFlag == 1  #继续收集重叠项
-                  @rangeBody << @kanjinumstring[-1]
-                  @kanjinumstring.chop!
-                end
-
-              end
+              if digit!=nil || digit_order!=nil || digit_pos!=nil || extra_word!=nil || digit_origin!=nil
+              @rangeTail << char
+            else
+              calcu_range(dept+1)
+              @simpleResult  << char
+            end
           when 9
           when 10
             if digit != nil
