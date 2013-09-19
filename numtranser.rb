@@ -470,6 +470,7 @@ class Numtranser
         case @stat
           when 0
             if digit != nil
+             
               if digit == 0
                 @zeroFlag = 1
               end
@@ -488,6 +489,11 @@ class Numtranser
               @num = 0
             elsif digit_origin != nil
               #直接数字处理逻辑
+               if char == "."
+                @result << "."
+                @stat = 0
+                next
+              end
               @stat = 1
               @numstringFlag = 1
               @numstring << char
@@ -811,6 +817,7 @@ class Numtranser
               @stat = 1
               if digit == 0
                 @zeroFlag = 1
+                @order = 1
               end
               @num = digit
             elsif digit_origin != nil
@@ -869,6 +876,7 @@ class Numtranser
               @num = digit
               if digit == 0
                 @zeroFlag = 1
+                @order=1
               end
             elsif digit_origin != nil
               @numstring << char
@@ -1552,6 +1560,7 @@ class Numtranser
               @stat = 1
               if digit == 0
                 @zeroFlag = 1
+                @order=1
               end
               @num = digit
             elsif digit_origin != nil
@@ -1609,6 +1618,7 @@ class Numtranser
               @num = digit
               if digit == 0
                 @zeroFlag = 1
+                @order=1
               end
             elsif digit_origin != nil
               @numstring << char
