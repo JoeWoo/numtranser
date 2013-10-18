@@ -1,0 +1,165 @@
+<div class="row"> 
+<div class="span9">
+	<div id="alerts"></div>
+    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          </ul>
+        </div>
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+          <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+          <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+          </ul>
+      </div>
+      <div class="btn-group">
+        <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+        <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+        <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
+        <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+      </div>
+      <div class="btn-group">
+        <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+        <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+        <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+        <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+      </div>
+      <div class="btn-group">
+        <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+        <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+      </div>
+</div>
+    <div id="editor">
+      
+    </div>
+
+<div class="well">
+<h4>翻译结果：</h4>
+<div class="bs-docs-example tooltip-demo">
+            <p id="result" class="muted" style="margin-bottom: 0;">
+            </p>
+</div> 
+</div> 
+
+</div>
+<div class="span1"> 
+ <div class="btn-group" style="margin-top:50px;">
+  <button class="btn btn-primary" id="start" onclick="get_transe()">翻译</button>
+  <button class="btn" id="clear" onclick="clear_editor()">清除</button>
+  <!--button class="btn" id="bug-report" onclick="post_bug()">报告bug</button-->
+</div>
+<div class="btn-group btn-group-vertical" style="margin-top:10px;">
+  <button class="btn" onclick="demo(0)">翻译示例:1</button>
+  <button class="btn"  onclick="demo(1)">翻译示例:2</button>
+  <button class="btn"  onclick="demo(2)">翻译示例:3</button>
+  <button class="btn"  onclick="demo(3)">翻译示例:4</button>
+</div>
+<div class="hidden">
+ <div id="0">
+ 《正确填写票据和结算凭证的基本规定》
+银行、单位和个人填写的各种票据和结算凭证是办理支付结算和现金收付的重要依据，直接关系到支付结算的准确、及时和安全。票据和结算凭证是银行、单位和个人凭以记载账务的会计凭证，是记载经济业务和明确经济责任的一种书面证明。因此，填写票据和结算凭证，必须做到标准化、规范化，要要素齐全、数字正确、字迹清晰、不错漏、不潦草，防止涂改。中文大写金额数字应用正楷或行书填写，如壹（壹）、贰（贰）、叁、肆（肆）、伍（伍）、陆（陆）、柒、捌、玖、拾、佰、仟、万（万）、亿、元、角、分、零、整（正）等字样。不得用一、二（两）、三、四、五、六、七、八、九、十、念、毛、另（或0）填写，不得自造简化字。如果金额数字书写中使用繁体字，如贰、陆、亿、万、圆的，也应受理。
+一、中文大写金额数字到"元"为止的，在"元"之后，应写"整"（或"正"）字，在"角"之后，可以不写"整"（或"正"）字。大写金额数字有"分"的，"分"后面不写"整"（或"正"）字。
+二、中文大写金额数字前应标明"人民币"字样，大写金额数字有"分"的，"分"后面不写"整"（或"正"）字。
+三、中文大写金额数字前应标明"人民币"字样，大写金额数字应紧接"人民币"字样填写，不得留有空白。大写金额数字前未印"人民币"字样的，应加填"人民币"三字。在票据和结算凭证大写金额栏内不得预印固定的"仟、佰、拾、万、仟、佰、拾、元、角、分"字样。
+四、阿拉伯数字小写金额数字中有"0"时，中文大写应按照汉语语言规律、金额数字构成和防止涂改的要求进行书写。举例如下：
+1·阿拉伯数字中间有"0"时，中文大写要写"零"字，如￥1409.50，应写成人民币壹仟肆佰零玖元伍角。
+2·阿拉伯数字中间连续有几个"0"时，中文大写金额中间可以只写一个"零"字，如￥6007.14，应写成人民币陆仟零柒元壹角肆分。
+3·阿拉伯金额数字万位和元位是"0"，或者数字中间连续有几个"0"，万位、元位也是"0"，但千位、角位不是"0"时，中文大写金额中可以只写一个零字，也可以不写"零"字。如￥1680.32，应写成人民币壹仟陆佰捌拾元零叁角贰分，或者写成人民币壹仟陆佰捌拾元叁角贰分，又如￥107000.53，应写成人民币壹拾万柒仟元零伍角叁分，或者写成人民币壹拾万零柒仟元伍角叁分。
+4·阿拉伯金额数字角位是"0"，而分位不是"0"时，中文大写金额"元"后面应写"零"字。如￥16409.02，应写成人民币壹万陆仟肆佰零玖元零贰分；又如￥325.04，应写成人民币叁佰贰拾伍元零肆分。
+五、阿拉伯小写金额数字前面，均应填写人民币符号"￥"。阿拉伯小写金额数字要认真填写，不得连写分辨不清。
+六、票据的出票日期必须使用中文大写。为防止变造票据的出票日期，在填写月、日时，月为壹、贰和壹拾的，日为壹至玖和壹拾、贰拾和叁拾的，应在其前加"零"；日为拾壹至拾玖的，应在其前加"壹"。如1月15日，应写成零壹月壹拾伍日。再如10月20日，应写成零壹拾月零贰拾日。
+七、票据出票日期使用小写填写的，银行不予受理。大写日期未按要求规范填写的，银行可予受理，但由此造成损失的，由出票人自行承担。
+也就是说，根据此规定第四第的3小点，你的这个金额有两种写法：
+1、人民币壹拾万贰仟伍佰元整
+2、人民币壹拾万零贰仟伍佰元整
+ </div>
+ <div id="1"> 
+汉字历史源远流长，博大精深，分类精确，用途复杂。在庞大的词类中，数词——作为一个小词类，也有其特殊、重要的作用。
+数词表示数目和次序，分基数和序数词。表示数目多少又可分为系词（一、二、三、四、五、六、七、八、九）和位数（十、百、千、万、亿）。中国是个爱玩文字的国度，从古到今，上下几千年，纵横几万里，诗人大家灿若星辰，名篇佳作浩如烟海。汉代大文豪司马相如与其娇妻卓文君就有运用数词作的一组经典的数字诗。据说以《凤求凰》琴挑上演私奔为后人津津乐道的这场恋情也非一帆风顺，是几经波折的。话说司马相如进京觐见汉武帝，之后沉醉于长安的纸醉金迷，卓文君去了好几封家书，司马相如只回了一封，上面写着：一、二、三、四、五、六、十、九、十、百、千、万。聪明的卓文君收信便知他已变心，因为在那组数字中缺“亿”，即无亿，谐音“无忆”，就是对文君没有感情了，睿智的文君在悲愤中回了一封更经典的数字诗：一别之后，两地相思，只说是三四月，又谁知五六年，七弦琴无心弹，八行书无可传，九连环从中折断，十里长亭望眼欲穿，百思想，千许念，万般无奈把君怨。万语千言说不完，百无聊赖十依栏，重九登高看孤雁，八月中秋月圆人不圆，七月半烧香秉烛问苍天，六伏天人人摇扇我心寒，五月石榴如火偏遇阵阵冷雨浇花端，四月枇杷未黄我欲对镜心意乱。意匆匆，三月桃花随水转，飘零零二月风筝线儿断，唉！郎啊郎，巴不得下一世你为女来我为男。这是一支流传千古、脍炙人口的数字绝唱。她把数词与动名词有机结合，娴熟地把一用到万，再从万写到一。美丽哀怨，表达了作者汹涌的情感。不论评论家说《白头吟》有魏晋文风，还是此数字诗有元曲风味，不为卓文君所作，不论是如何，都表达了大家对他们故事的美好希冀，和国人对数词运用到诗词中的浓厚兴趣，及深厚的文字功底，文化内涵。
+《元人小令选》中有一支《山行警》也用数词营造了一副悠闲、蒙胧的意象：东边路，西边路，南边路，五里铺、七里铺、十里铺，行一步、盼一步、懒一步……此篇亦是活用了系数词。数词不仅古人钟爱，不少青春文学中有人同样用得不亦乐乎。郭敬明在他的《八月天高人浮躁》一文中写了：一月孤独、二月焰火、三月忧伤、四月梦魇、五月红莲、六月永生、七月霓裳，八月霜降，九月潮水，十月弥漫，十一月空荡山，十二月双刃剑。这里就是数词与名词或动词的完美结合，制造出青春文字中那种独特的疼痛与忧伤。
+在汉字中，序数词的用法也是多样的。相比于英语的单调，汉语序数词的形式就丰富得多，一般有“第”或“初”，如：第一、第二，初一、初二。更有独特的天干地支的表达法。天干分：甲、乙、丙、丁、戊、己、庚、辛、壬、葵。地支分：子、丑寅、卯、辰、巳午、未、申、酉、戌、亥。这是在博大的汉语数词中才会出现的特有现象。
+从古至今，从庞大到微小，数词作为词类中不可或缺的一部分，以谦逊的姿态，演绎着汉语的华彩，纪录着轮回的变迁。
+ </div>
+
+ <div id="2">
+  中新网9月17日电 据胡润百富网消息，《2013胡润女富豪榜》于9月17日在上海发布，这是胡润研究院连续第八次发布“胡润女富豪榜”前50位。今年也是胡润研究院连续第四年发布《2013胡润全球白手起家女富豪榜》，上榜门槛为10亿美金。上榜女富豪中，32岁的杨惠妍取代吴亚军成为女首富，陈丽华则以370亿元财富成为新一期的全球白手起家女首富，代替去年女首富吴亚军。
+
+　　胡润百富董事长兼首席调研员胡润表示：“这一代中国女企业家不但在中国地位很高，在全球范围内地位也不可动摇。”
+
+　　32岁的杨惠妍以财富510亿元，取代去年女首富吴亚军，相隔5年再次成为2013年女首富。
+
+　　女富豪从事房地产行业的人数最多，达到25%； 除房地产之外，女富豪更青睐金融与投资行业，比较少从事制造业。18%女富豪从事金融与投资行业，比例是男富豪的一倍；仅9%女富豪从事制造业，是男富豪的一半。
+
+　　女富豪榜上榜门槛为36亿元，比去年上升28.5%，是历年最高；而百富榜前50位男富豪财富门槛为180亿，是女富豪榜上榜门槛的5倍。女富豪平均财富96亿元，比去年增加9.1%；而前50位男富豪平均财富300多亿，是女富豪的三倍多。
+
+　　广东创造女富豪的环境最好，诞生了17位女富豪，北京和上海分别以9位和6位排第二、第三名；在百富榜上排名绝对第一的浙商，在女富豪榜上排名表现落后。
+
+　　前50位上榜女富豪中，白手起家的有34位，占67%，比去年增加6.7%，陈丽华是中国白手起家女首富，同时也是全球白手起家女首富。
+
+　　陈丽华以370亿元财富成为新一期的全球白手起家女首富，代替去年女首富吴亚军；吴亚军去年一年的股份缩减了26%。
+
+　　一半以上的全球最成功白手起家女富豪来自中国。全球10亿美金以上白手起家女富豪28人，其中15人来自中国；前5名中有3名来自中国内地，前10名中有6名来自中国内地。(中新网金融频道)
+ </div>
+ <div id="3"> 
+据美国自然母亲网站近日报道，联合国大会发布的第二届《世界幸福度报告》显示，世界上最幸福的人生活在斯堪的纳维亚半岛上：排名首位的是丹麦，紧随其后依次是挪威和瑞士。美国排名17位，中国仅列第93位，评价得分是4.978分，低于5.1的平均分(满分10分)。
+
+该报告由美国哥伦比亚大学地球研究所的研究人员，分析了全球150多个国家从2005年开始的幸福度数据后得出的。报告指出，幸福感主要受实际人均国内生产总值、健康期望寿命、可以依靠的人、对生活做出选择的自由感、腐败程度以及社会的包容度，这6个因素的影响。与之前的调查相比， 61个国家的人认为其幸福度有所提升，另有41个国家的人认为其幸福度比上一年有所下降。
+
+华南师范大学心理学副教授迟毓凯表示，该排名有一定的道理，其评判标准也比较科学。迟毓凯认为，幸福感固然与经济有关，但是，在满足了吃喝等基本生活需求后，人们就可能会对公平、民主、自由等要求更多，幸福感也就不仅仅取决于经济了。
+
+迟毓凯认为，造成中国人幸福感排名不高的原因是多方面的。首先，随着社会越来越开放，人们获取信息变得更便捷，这就与他人产生了更多的对比。其次，虽然我国在经济发展上取得了长足进步，但是精神食粮的匮乏，容易让人空虚，幸福指数会有所降低。最后，目前，我国处在社会转型期，社会矛盾比较严重，如贫富差距加大，腐败现象仍存在等，这些都使得人们的不确定感增强。
+
+“但是我们要学会创造幸福感。”迟毓凯建议，政府应该从政策上不断推进，比如消除社会不公平现象等，朝着更加透明、开放的方向迈进。各级部门、单位应致力于树立正确的价值取向，幸福与否不能只比“物质”，还要比“精神”。作为个人，幸福感是主观上的一种认知，就像赚同样多的钱，幸福感取决于你怎么花费这笔钱，而不是你挣了多少钱。人们应该重新思考金钱的价值了。
+  </div>
+</div>    
+   
+</div>
+</div>
+</div>
+
+<script type="text/javascript"> 
+
+  $(function(){
+    function initToolbarBootstrapBindings() {
+      var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
+            'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+            'Times New Roman', 'Verdana'],
+            fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+      $.each(fonts, function (idx, fontName) {
+          fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
+      });
+      $('a[title]').tooltip({container:'body'});
+    	$('.dropdown-menu input').click(function() {return false;})
+		    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
+        .keydown('esc', function () {this.value='';$(this).change();});
+
+      $('[data-role=magic-overlay]').each(function () { 
+        var overlay = $(this), target = $(overlay.data('target')); 
+        overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+      });
+      if ("onwebkitspeechchange"  in document.createElement("input")) {
+        var editorOffset = $('#editor').offset();
+        $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+      } else {
+        $('#voiceBtn').hide();
+      }
+	};
+	function showErrorAlert (reason, detail) {
+		var msg='';
+		if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+		else {
+			console.log("error uploading file", reason, detail);
+		}
+		$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+		 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+	};
+    initToolbarBootstrapBindings();  
+	$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+    window.prettyPrint && prettyPrint();
+  });
+  
+</script>
+
