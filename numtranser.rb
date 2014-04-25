@@ -364,8 +364,21 @@ class Numtranser
                       m << a.simpleMachine(st,dept+1)+"、"
                   end
                 else
-                #@result<<"daolaileffffffffffffffffffffffffff"+chongdie.to_s      
-                  if chongdie== 1                  #十万二、三千零五十
+                #@result<<"daolaileffffffffffffffffffffffffff"+chongdie.to_s   
+                ok = false
+                if  @rangeTail.empty? == true
+                  ok = true
+                elsif $kanji['阶位'][@rangeTail[0]]!=nil  
+                  ok = true
+                elsif @rangeHead.empty? == true
+                  ok = true
+                elsif @rangeTail.empty? == true
+                  ok = true
+                elsif $kanji['数位'][@rangeHead[-1]] > $kanji['数位'][@rangeTail[1]]
+                  ok = true
+                end
+
+                  if chongdie== 1 && ok==true                  #十万二、三千零五十
                     @rangeBody.each do |body|
                     st=@rangeHead+body+@rangeTail+" "
                     a=Numtranser.new()
