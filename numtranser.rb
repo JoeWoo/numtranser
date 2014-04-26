@@ -155,6 +155,69 @@ class Numtranser
 						if wait_words == "几" or wait_words == "好几"
 							result_words = "several"
 							result_text << highlight(wait_words,result_words)
+						elsif wait_words[-1] == "分"
+							if wait_words.include?("点")
+								tmp = wait_words.split("点")
+								tnum1 = ChineseToEnglishNumber(tmp[0])
+								tnum2 = ChineseToEnglishNumber(tmp[1].chop!)
+								result_text << highlight(wait_words,tnum1.value.to_s+":"+tnum2.value.to_s)
+							else
+								puts "fdfdfdfdf"
+								wait_words.chop!
+								if !wait_words.empty?
+									m = ChineseToEnglishNumber wait_words.clone
+									if m.type == $N
+										result_text << highlight(wait_words,(m.ex)+num2en(m.value))
+									elsif m.type == $F && (m.denom == 100 or m.denom==1000)
+										s = m.numer.to_s
+										if m.numer.class == (1/1).to_r.class
+											s=m.numer.to_f.to_s
+										end
+										result_text << highlight(wait_words,(m.ex)+s+"/"+m.denom.to_s)
+									else
+										result_text << highlight(wait_words,(m.ex)+m.value.to_s)
+									end
+								end
+								result_text << "分"
+							end
+						elsif wait_words[-1] != "分" && wait_words.include?("点") && (timemat(wait_words)==1 or timemat(wait_words)==2)
+							if(timemat(wait_words)==1)
+								tmp = wait_words.split("点")
+								tnum1 = ChineseToEnglishNumber(tmp[0])
+								tnum2 = ChineseToEnglishNumber(tmp[1])
+								result_text << highlight(wait_words,tnum1.value.to_s+":"+tnum2.value.to_s)
+							else
+								tmp = wait_words.split("点")
+								tnum1 = ChineseToEnglishNumber(tmp[0])
+								tnum2 = ChineseToEnglishNumber(tmp[1])
+
+								m = ChineseToEnglishNumber tnum1.clone
+								if m.type == $N
+									result_text << highlight(wait_words,(m.ex)+num2en(m.value))
+								elsif m.type == $F && (m.denom == 100 or m.denom==1000)
+									s = m.numer.to_s
+									if m.numer.class == (1/1).to_r.class
+										s=m.numer.to_f.to_s
+									end
+									result_text << highlight(wait_words,(m.ex)+s+"/"+m.denom.to_s)
+								else
+									result_text << highlight(wait_words,(m.ex)+m.value.to_s)
+								end
+								result_text << "点"
+								m = ChineseToEnglishNumber tnum2.clone
+								if m.type == $N
+									result_text << highlight(wait_words,(m.ex)+num2en(m.value))
+								elsif m.type == $F && (m.denom == 100 or m.denom==1000)
+									s = m.numer.to_s
+									if m.numer.class == (1/1).to_r.class
+										s=m.numer.to_f.to_s
+									end
+									result_text << highlight(wait_words,(m.ex)+s+"/"+m.denom.to_s)
+								else
+									result_text << highlight(wait_words,(m.ex)+m.value.to_s)
+								end
+							end
+							
 						else
 							m = ChineseToEnglishNumber wait_words.clone
 							if m.type == $N
@@ -342,6 +405,17 @@ class Numtranser
 		end
 		return result_text
 	end#end-func
+
+	def timemat(words)
+		tmp = words.split("点")
+		if tmp[1].length<=3 && tmp[1].include?("十") && !tmp[1].include?("百") && !tmp[1].include?("千") && !tmp[1].include?("万") && !tmp[1].include?("亿")
+			return 1
+		elsif tmp[1].include?("百") or tmp[1].include?("千") or tmp[1].include?("万") or tmp[1].include?("亿")
+			return 2
+		else
+			return 0
+    	end
+    end
 
 	def judge_yue_words(wait_word)
 		yueshu = ["一二","二三","三四","四五","五六","六七","七八","八九","九十"]
