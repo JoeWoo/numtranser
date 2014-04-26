@@ -25,7 +25,7 @@ end
 
 get '/' do
   
-  erb '<div style="height:60px;"></div><div class="hero-unit"><h1>READ ME</h1><p></p><p>使用方法：贴入原文本即可高亮数词，鼠标悬停于高亮文本上即可翻译。<br/>注：本功能采用自动机和简易语法消歧方法实现。</p><a class="btn btn-primary" href="/secure/place">开始使用</a></div>'
+  erb '<div style="height:60px;"></div><div class="hero-unit"><h1>READ ME</h1><p></p><p>本系统可以识别序数词、基数词、阿拉伯数字、汉语数词、模糊数词等。<br/>使用方法：贴入原文本即可高亮数词，鼠标悬停于高亮文本上即可翻译。<br/>注：本功能采用自动机和简易语法消歧方法实现。</p><a class="btn btn-primary" href="/secure/place">开始使用</a></div>'
 end
 
 get '/login/form' do 
