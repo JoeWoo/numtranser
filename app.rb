@@ -1,7 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
-require File.expand_path("../numtranser", __FILE__)
+require File.expand_path("../num2", __FILE__)
+
 
 configure do
   set :public_folder, Proc.new { File.join(root, "static") }
