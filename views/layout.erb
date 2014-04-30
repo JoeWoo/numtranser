@@ -4,6 +4,7 @@
   	<title>中文数词识别与翻译</title>
     <script src="/vendor/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
     <script src="/bootstrap-wysiwyg.js" type="text/javascript"></script>
     <script src="/jquery.hotkeys.js"></script>
 
@@ -11,6 +12,8 @@
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/vendor/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/bootstrap-switch.min.css">
+     <script src="/bootstrap-switch.min.js" type="text/javascript"></script>
     <script src="/app.js" type="text/javascript"></script>
   </head>
   <body style="padding-top: 50px;">
@@ -47,12 +50,12 @@
       </div>
     </div>
 
-  
+
 	<div class="container">
 		<%if @info then %>
 			<div class="alert alert-info"><%=@info%></div>
 		<% end %>
-    
+
     	<%= yield %>
 	</div>
   </body>

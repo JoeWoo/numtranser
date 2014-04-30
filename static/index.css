@@ -2,27 +2,44 @@
  * of the key things about the widget is that it allows you to do your own styling!
  */
 body {
-	min-height:900px; 
+	min-height:1800px;
+
 }
 .hidden{
 	display: none;
 }
 #editor {
-	max-height: 250px;
-	height: 250px;
+	max-height: 350px;
+	height: 350px;
 	background-color: white;
-	border-collapse: separate; 
-	border: 1px solid rgb(204, 204, 204); 
-	padding: 4px; 
-	box-sizing: content-box; 
-	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+	border-collapse: separate;
+	border: 1px solid rgb(204, 204, 204);
+	padding: 4px;
+	box-sizing: content-box;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
 	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
 	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
 	overflow: scroll;
 	outline: none;
 }
-
+#result{
+    height:530px;
+    background-color: white;
+    border-collapse: separate;
+    border: 1px solid rgb(204, 204, 204);
+    padding: 4px;
+    box-sizing: content-box;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+    overflow: scroll;
+    outline: none;
+}
+tr:hover{
+      cursor: pointer;
+}
 div[data-role="editor-toolbar"] {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -37,4 +54,15 @@ div[data-role="editor-toolbar"] {
 .highlight{
 	background: yellow;
 	color:black;
+}
+.blue_selected{
+    background: #08c;
+}
+.red_selected{
+    background: blue;
+    color:white;
+    font-size : 20px;
+}
+.minth{
+    width: 21px;
 }
