@@ -589,7 +589,7 @@ class Numtranser
       puts "Seems to be an error in the number. cnumber\n"
       return ""
     end
-    #puts "正在翻译："+cnumber
+   # puts "正在翻译："+cnumber
     outputtype = @default_englishtype if(outputtype == "")
     outputtype.downcase!
 
@@ -598,8 +598,8 @@ class Numtranser
     ordinal  = 0
     yue = 0
 
-    if ( cnumber.gsub!(/几/, "0") !=nil ||
-         cnumber.gsub!(/好几/, "0")!=nil ||
+    if (cnumber.gsub!(/好几/, "0")!=nil ||
+         cnumber.gsub!(/几/, "0") !=nil ||
          cnumber.gsub!(/多/, "0") !=nil ||
          cnumber.gsub!(/余/, "0")!=nil ||
          cnumber.gsub!(/来/, "0") !=nil)
@@ -658,6 +658,7 @@ class Numtranser
         if(yue==1)
           result.ex="about "
         end
+        #puts cnumber
         result.value = ChineseToEnglishFull(cnumber)
         if result.value.class == (1/1).to_r.class
           result.value=result.value.to_f

@@ -75,6 +75,7 @@ function render_side_bar () {
 
 function get_transe(){
 var description = $("#editor").html()+"\r\n";
+    description = description.replace(/<br\/>/g, "\n");
     description = description.replace(/<\/?[^>]*>/g, " ");
 var markers = { "text": description};
 
@@ -85,13 +86,13 @@ $.ajax({
     contentType: "application/json; charset=utf-8",
     dataType : "json",
     success: function( json ) {
-        $( "#result" ).html( json.result );
+        $( "#result" ).html(json.result.replace(/\n/g, "<br/>"));
          $('#result-side-bar').hide(100);
           $('#result-side-bar').show(700);
         render_side_bar();
     },
     error: function( xhr, status ) {
-        alert( "Sorry, there was a problem!" );
+        alert( "对不起，由于过去的时间太长，session已失效!\n 请刷新！" );
     }
     // complete: function( xhr, status ) {
     //     alert( "The request is complete!" );
@@ -125,7 +126,7 @@ function demo (index){
   }else{
     $("#editor").html("")
   var div="#t"+index
-  $("#editor").text($(div).html());
+  $("#editor").html($(div).html());
 
   get_transe();
 

@@ -39,6 +39,7 @@ body {
 }
 tr:hover{
       cursor: pointer;
+      background: #e0e0e0;
 }
 div[data-role="editor-toolbar"] {
   -webkit-user-select: none;
