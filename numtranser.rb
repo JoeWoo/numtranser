@@ -164,6 +164,14 @@ class Numtranser
 								tmp = wait_words.split("点")
 								tnum1 = ChineseToEnglishNumber(tmp[0])
 								tnum2 = ChineseToEnglishNumber(tmp[1].chop!)
+								if tnum1.value < 10
+									tnum1.value=tnum1.value.to_s
+									tnum1.value.insert(0,"0")
+								end
+								if tnum2.value < 10
+									tnum2.value=tnum2.value.to_s
+									tnum2.value.insert(0,"0")
+								end
 								result_text << highlight(wait_words, tnum1.value.to_s+":"+tnum2.value.to_s, tnum1.value.to_s+":"+tnum2.value.to_s)
 							else
 								#puts "fdfdfdfdf"
@@ -177,7 +185,11 @@ class Numtranser
 										if m.numer.class == (1/1).to_r.class
 											s=m.numer.to_f.to_s
 										end
-										result_text << highlight( wait_words, (m.ex)+s+"/"+m.denom.to_s, m.value.to_s)
+										if m.denom == 100
+											result_text << highlight( wait_words, (m.ex)+s+"%", m.value.to_s)
+										else# m.denom == 1000
+											result_text << highlight( wait_words, (m.ex)+s+"‰", m.value.to_s)
+										end
 									else
 										result_text << highlight(wait_words,(m.ex)+m.value.to_s, m.value.to_s)
 									end
@@ -189,6 +201,14 @@ class Numtranser
 								tmp = wait_words.split("点")
 								tnum1 = ChineseToEnglishNumber(tmp[0])
 								tnum2 = ChineseToEnglishNumber(tmp[1])
+								if tnum1.value < 10
+									tnum1.value=tnum1.value.to_s
+									tnum1.value.insert(0,"0")
+								end
+								if tnum2.value < 10
+									tnum2.value=tnum2.value.to_s
+									tnum2.value.insert(0,"0")
+								end
 								result_text << highlight(wait_words,tnum1.value.to_s+":"+tnum2.value.to_s, tnum1.value.to_s+":"+tnum2.value.to_s)
 							else
 								tmp = wait_words.split("点")
@@ -203,7 +223,11 @@ class Numtranser
 									if m.numer.class == (1/1).to_r.class
 										s=m.numer.to_f.to_s
 									end
-									result_text << highlight(wait_words,(m.ex)+s+"/"+m.denom.to_s, m.value.to_s)
+									if m.denom == 100
+										result_text << highlight( wait_words, (m.ex)+s+"%", m.value.to_s)
+									else# m.denom == 1000
+										result_text << highlight( wait_words, (m.ex)+s+"‰", m.value.to_s)
+									end
 								else
 									result_text << highlight(wait_words,(m.ex)+m.value.to_s, m.value.to_s)
 								end
@@ -216,7 +240,11 @@ class Numtranser
 									if m.numer.class == (1/1).to_r.class
 										s=m.numer.to_f.to_s
 									end
-									result_text << highlight(wait_words,(m.ex)+s+"/"+m.denom.to_s, m.value.to_s)
+									if m.denom == 100
+										result_text << highlight( wait_words, (m.ex)+s+"%", m.value.to_s)
+									else# m.denom == 1000
+										result_text << highlight( wait_words, (m.ex)+s+"‰", m.value.to_s)
+									end
 								else
 									result_text << highlight(wait_words,(m.ex)+m.value.to_s, m.value.to_s)
 								end
@@ -231,7 +259,11 @@ class Numtranser
 								if m.numer.class == (1/1).to_r.class
 									s=m.numer.to_f.to_s
 								end
-								result_text << highlight(wait_words,(m.ex)+s+"/"+m.denom.to_s, m.value.to_s)
+								if m.denom == 100
+									result_text << highlight( wait_words, (m.ex)+s+"%", m.value.to_s)
+								else# m.denom == 1000
+									result_text << highlight( wait_words, (m.ex)+s+"‰", m.value.to_s)
+								end
 							else
 								result_text << highlight(wait_words,(m.ex)+m.value.to_s, m.value.to_s)
 							end
@@ -248,7 +280,11 @@ class Numtranser
 								if m.numer.class == (1/1).to_r.class
 									s=m.numer.to_f.to_s
 								end
-								result_text << highlight(sub_word,(m.ex)+s+"/"+m.denom.to_s, m.value.to_s)+"、"
+								if m.denom == 100
+									result_text << highlight( wait_words, (m.ex)+s+"%", m.value.to_s)+"、"
+								else# m.denom == 1000
+									result_text << highlight( wait_words, (m.ex)+s+"‰", m.value.to_s)+"、"
+								end
 							else
 								result_text << highlight(sub_word,(m.ex)+m.value.to_s, m.value.to_s)+"、"
 							end
@@ -286,7 +322,7 @@ class Numtranser
 						q1 = (num1.ex)+s1+"/"+num1.denom.to_s if num1.type == $F && (num1.denom == 100 or num1.denom==1000)
 
 						q2 = (num2.ex)+s2+"/"+num2.denom.to_s if num2.type == $F && (num2.denom == 100 or num2.denom==1000)
-						result_text << highlight(wait_words,q1+ "、"+q2, num1.value.to_s+"、"+num2.value.to_s)
+						result_text << highlight(wait_words,q1+ "～"+q2, num1.value.to_s+"～"+num2.value.to_s)
 					else #$N1
 						site = wait_words.index('、')
 						increase_flag = false
@@ -656,7 +692,7 @@ class Numtranser
 			else
 				result.type = $N
 				if(yue==1)
-					result.ex="about "
+					result.ex="more than "
 				end
 				#puts cnumber
 				result.value = ChineseToEnglishFull(cnumber)
@@ -668,7 +704,7 @@ class Numtranser
 		else
 			result.type = $N
 			if(yue==1)
-				result.ex="about "
+				result.ex="more than "
 			end
 			result.value = ChineseToEnglishFull(cnumber)
 			if result.value.class == (1/1).to_r.class
@@ -910,10 +946,10 @@ class Numtranser
 							count = withcomma.length / 3
 							start = withcomma.length % 3
 							count.downto(1) do
-								withcomma.insert(start,"，")
+								withcomma.insert(start,",")
 								start += 4
 							end
-							if withcomma[0]=="，"
+							if withcomma[0]==","
 								withcomma.slice!(0)
 							end
 							return withcomma
