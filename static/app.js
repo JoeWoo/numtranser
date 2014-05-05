@@ -62,7 +62,7 @@ function render_side_bar () {
   var tb = $("#tb1");
 
   while(m.length != 0){
-    table_td += "<tr id='td"+i+"' onClick='highlight("+i+")' ><td class='minth'>"+i+"</td><td>"+m.text()+"</td><td>"+m.attr("m_value")+"</td><td>"+ m.attr("title")+"</td></tr>";
+    table_td += "<tr id='td"+i+"' onClick='highlight("+i+")' ><td class='minth'>"+i+"</td><td>"+m.text()+"</td><td>"+ m.attr("title")+"</td></tr>";
     i++;
     m=$("#"+i);
   }
