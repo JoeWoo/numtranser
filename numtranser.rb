@@ -24,6 +24,7 @@ class Numtranser
 		@default_outputtype = "trad"
 		@default_englishtype = "arabic"
 		@strid = 0
+		@digitval_flag = 0
 
 		@MINUS = "負"
 		@DECIMAL = "點"
@@ -684,6 +685,7 @@ class Numtranser
 
 			if alldigits == 1
 				result.type = $N
+				@digitval_flag=1 if (@digitval_flag == 0)
 				result.value = ChineseToEnglishBrief(cnumber)
 				if result.value.class == (1/1).to_r.class
 					result.value=result.value.to_f
@@ -873,91 +875,94 @@ class Numtranser
 						elsif @digits_map[nextcchar]!=nil
 							leveltotal *= 10
 							leveltotal += digitval
-							while(i+1<cnumlength and @digits_map[cnumber[i+1]]) do
-									leveltotal *=10
-									leveltotal += @digits_map[cnumber[i+1]]
-									i+=1
-								end
-								else
-									leveltotal += digitval
-								end
-								else
-									if i+1 == cnumlength && i>0
-										prevchar = cnumber[i-1]
-										if prevchar =='兆'
-											leveltotal += digitval * (10**11)
-										elsif prevchar =='億' or prevchar == '亿'
-											leveltotal += digitval * (10**7)
-										elsif prevchar == '萬' or prevchar =='万'
-											leveltotal += digitval * 1000
-										elsif prevchar == '千' or prevchar == '仟'
-											leveltotal += digitval * 100
-										elsif prevchar == "百" or prevchar == '佰'
-											leveltotal += digitval * 10
-										else
-											leveltotal += digitval
-										end
-									else
-										leveltotal += digitval
-									end
-								end
-								else
-									puts "Seems to be an error in the number. cnumber\n"
-									return ""
-								end
+							while(i+1<cnumlength and @digits_map[cnumber[i+1]])
+								leveltotal *=10
+								leveltotal += @digits_map[cnumber[i+1]]
 								i+=1
-							end#end-while
-
-
-							# Catch remaining leveltotal
-							#print("Level total " + leveltotal + " power " + power + " ten to power " + (10**power)/10)
-
-							total += leveltotal # * 10** power
-
-							#if (cchar == '點' or cchar == '点' or cchar == '.') {
-							#power = -1
-							#for (j = i+1 j < cnumlength j++, power--) {
-							#digitval = digits{substru8(cnumber, j, 1)}
-							#total += digitval * (10 ** power)
-							# }
-							#}
-
-
-							total = -total if negative == 1
-
-							return total
-						end#end-func
-
-						def chinese_output (myself,outputtype)
-							@default_outputtype = outputtype if(!outputtype.empty?)
-							return @default_outputtype
-						end#end-func
-
-						def english_output (myself, englishtype)
-							@default_englishtype = englishtype if (!englishtype.empty?)
-						end#end-func
-
-						def num2en_ordinal(num)
-							I18n.with_locale(:en) { num.to_words ordinal: true }
-						end#end-func
-
-						def num2en(num)
-							withcomma = num.to_s
-							count = withcomma.length / 3
-							start = withcomma.length % 3
-							count.downto(1) do
-								withcomma.insert(start,",")
-								start += 4
 							end
-							if withcomma[0]==","
-								withcomma.slice!(0)
+						else
+							leveltotal += digitval
+						end
+					else
+						if i+1 == cnumlength && i>0
+							prevchar = cnumber[i-1]
+							if prevchar =='兆'
+								leveltotal += digitval * (10**11)
+							elsif prevchar =='億' or prevchar == '亿'
+								leveltotal += digitval * (10**7)
+							elsif prevchar == '萬' or prevchar =='万'
+								leveltotal += digitval * 1000
+							elsif prevchar == '千' or prevchar == '仟'
+								leveltotal += digitval * 100
+							elsif prevchar == "百" or prevchar == '佰'
+								leveltotal += digitval * 10
+							else
+								leveltotal += digitval
 							end
-							return withcomma
-						end#end-func
+						else
+							leveltotal += digitval
+						end
+					end
+				else
+					puts "Seems to be an error in the number. cnumber\n"
+					return ""
+				end
+				i+=1
+			end#end-while
 
-						def highlight(str, english, value="-")
-							@strid += 1
-							"<a  data-toggle='tooltip' onmouseover=' titleshow(#{@strid})' onmouseout='titlehide(#{@strid})' title='#{english}' href='#' id='#{@strid}' class='highlight' >#{str}</a>"
-						end#end-func
 
-					end#end-class
+			# Catch remaining leveltotal
+			#print("Level total " + leveltotal + " power " + power + " ten to power " + (10**power)/10)
+
+			total += leveltotal # * 10** power
+
+			#if (cchar == '點' or cchar == '点' or cchar == '.') {
+			#power = -1
+			#for (j = i+1 j < cnumlength j++, power--) {
+			#digitval = digits{substru8(cnumber, j, 1)}
+			#total += digitval * (10 ** power)
+			# }
+			#}
+
+
+			total = -total if negative == 1
+
+			return total
+		end#end-func
+
+		def chinese_output (myself,outputtype)
+			@default_outputtype = outputtype if(!outputtype.empty?)
+			return @default_outputtype
+		end#end-func
+
+		def english_output (myself, englishtype)
+			@default_englishtype = englishtype if (!englishtype.empty?)
+		end#end-func
+
+		def num2en_ordinal(num)
+			I18n.with_locale(:en) { num.to_words ordinal: true }
+		end#end-func
+
+		def num2en(num)
+			withcomma = num.to_s
+			if (@digitval_flag == 0)
+				count = withcomma.length / 3
+				start = withcomma.length % 3
+				count.downto(1) do
+					withcomma.insert(start,",")
+					start += 4
+				end
+				if withcomma[0]==","
+					withcomma.slice!(0)
+				end
+			end
+			@digitval_flag = 0
+			return withcomma
+		end#end-func
+
+		def highlight(str, english, value="-")
+			@strid += 1
+			"<a  data-toggle='tooltip' onmouseover=' titleshow(#{@strid})' onmouseout='titlehide(#{@strid})' title='#{english}' href='#' id='#{@strid}' class='highlight' >#{str}</a>"
+		end#end-func
+
+	end#end-class
